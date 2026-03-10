@@ -1,11 +1,29 @@
+<div align="center">
+
 # Context-Nav: Context-Driven Exploration and Viewpoint-Aware 3D Spatial Reasoning for Instance Navigation
 
 ### CVPR 2026
 
-**Won Shik Jang**, **Ue-Hwan Kim***  
+**Won Shik Jang, Ue-Hwan Kim\***  
 Gwangju Institute of Science and Technology (GIST)
 
-[Paper (coming soon)](#) · [Project Page (coming soon)](#)
+</div>
+
+<div align="center">
+
+<a href="LINK_TO_PAPER">
+<img src="https://img.shields.io/badge/Paper-Coming%20Soon-red">
+</a>
+
+<a href="LINK_TO_PROJECT">
+<img src="https://img.shields.io/badge/Project-Coming%20Soon-blue">
+</a>
+
+<a href="LINK_TO_arXiv">
+<img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b">
+</a>
+
+</div>
 
 ---
 
