@@ -26,9 +26,6 @@ Gwangju Institute of Science and Technology (GIST)
 </div>
 
 ---
-
-## Teaser
-
 <p align="center">
   <img src="assets/teaser.png" width="90%">
 </p>
