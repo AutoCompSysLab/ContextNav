@@ -20,7 +20,7 @@ Gwangju Institute of Science and Technology (GIST)
 </a>
 
 <a href="https://arxiv.org/abs/2603.09506">
-<img src="https://img.shields.io/badge/arXiv-red">
+<img src="https://img.shields.io/badge/arXiv-PDF-b31b1b">
 </a>
 
 </div>
