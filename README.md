@@ -19,8 +19,8 @@ Gwangju Institute of Science and Technology (GIST)
 <img src="https://img.shields.io/badge/Project-Coming%20Soon-blue">
 </a>
 
-<a href="LINK_TO_arXiv">
-<img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b">
+<a href="https://arxiv.org/abs/2603.09506">
+<img src="https://img.shields.io/badge/arXiv-red">
 </a>
 
 </div>
