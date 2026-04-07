@@ -15,8 +15,8 @@ Gwangju Institute of Science and Technology (GIST)
 <img src="https://img.shields.io/badge/Paper-Coming%20Soon-red">
 </a>
 
-<a href="LINK_TO_PROJECT">
-<img src="https://wonshikjang.github.io/ContextNavPage/">
+<a href="https://wonshikjang.github.io/ContextNavPage/">
+<img src="https://img.shields.io/badge/Project-Page-blue">
 </a>
 
 <a href="https://arxiv.org/abs/2603.09506">
