@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Context-Nav | CVPR 2026</title>
+<meta name="description" content="Context-Nav: Context-Driven Exploration and Viewpoint-Aware 3D Spatial Reasoning for Instance Navigation. CVPR 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --text: #1a1a1a;
+  --text2: #555;
+  --text3: #888;
+  --bg: #ffffff;
+  --bg2: #f7f7f8;
+  --border: #e5e5e5;
+  --accent: #4361ee;
+  --accent-light: #eef0ff;
+  --max-w: 900px;
+  --font: 'Noto Sans', -apple-system, sans-serif;
+  --font-serif: 'Noto Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* LAYOUT */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 3rem 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 5rem 1.5rem 3rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  padding: .3rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 700;
+  border-radius: 4px;
+  letter-spacing: .05em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: .8rem;
+}
+.hero .subtitle {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+}
+.authors {
+  font-size: 1.05rem;
+  margin-bottom: .3rem;
+}
+.authors a { font-weight: 600; color: var(--text); }
+.authors a:hover { color: var(--accent); text-decoration: none; }
+.authors sup { font-size: .7em; color: var(--accent); }
+.affiliation { font-size: .9rem; color: var(--text3); margin-bottom: 2rem; }
+
+/* BUTTONS */
+.btn-row { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .55rem 1.3rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: .88rem; font-weight: 600;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color .2s, background .2s;
+}
+.btn:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); text-decoration: none; }
+.btn i { font-size: .85em; }
+
+/* SECTION TITLES */
+h2 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* BODY TEXT */
+.body-text {
+  font-size: .98rem;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.body-text strong { color: var(--text); }
+
+/* ABSTRACT */
+.abstract {
+  font-size: .98rem;
+  color: var(--text2);
+  line-height: 1.85;
+  border-left: 3px solid var(--accent);
+  padding-left: 1.2rem;
+}
+
+/* VIDEO */
+.video-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+}
+.video-wrap iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: none;
+}
+
+/* FIGURES */
+.figure {
+  margin: 1.5rem 0 2.5rem;
+}
+.figure img {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.figure-placeholder {
+  width: 100%;
+  min-height: 260px;
+  background: var(--bg2);
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .5rem;
+  color: var(--text3);
+  font-size: .85rem;
+}
+.figure-placeholder i { font-size: 1.5rem; }
+.fig-caption {
+  text-align: center;
+  font-size: .85rem;
+  color: var(--text3);
+  margin-top: .6rem;
+  line-height: 1.6;
+}
+.fig-caption b { color: var(--text2); }
+
+/* METHOD CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.card {
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.card h3 {
+  font-size: .95rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+  color: var(--text);
+}
+.card p {
+  font-size: .88rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* TABLES */
+.table-title {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: .6rem;
+}
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1.8rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+thead { background: var(--bg2); }
+th, td { padding: .6rem .8rem; text-align: center; border-bottom: 1px solid var(--border); }
+th { font-weight: 700; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text2); }
+td { color: var(--text2); }
+td.name { text-align: left; font-weight: 600; color: var(--text); }
+tr:last-child td { border-bottom: none; }
+.ours { background: var(--accent-light); }
+.ours td { color: var(--accent); font-weight: 700; }
+.ours td.name { color: var(--accent); }
+.table-note { font-size: .78rem; color: var(--text3); margin-top: .4rem; }
+
+/* BIBTEX */
+.bib {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.4rem;
+  position: relative;
+}
+.bib pre {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--text2);
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+.copy-btn {
+  position: absolute; top: .8rem; right: .8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  padding: .3rem .7rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: .75rem;
+  font-family: var(--font);
+  transition: all .2s;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--text3);
+  font-size: .82rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 3rem 1.2rem 2rem; }
+  .btn-row { flex-direction: column; align-items: center; }
+  .btn { width: 100%; max-width: 240px; justify-content: center; }
+  section { padding: 2rem 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-badge">CVPR 2026</span>
+  <h1>Context-Nav</h1>
+  <p class="subtitle">Context-Driven Exploration and Viewpoint-Aware 3D Spatial Reasoning for Instance Navigation</p>
+  <p class="authors">
+    Won Shik Jang<sup>1</sup>
+    &nbsp;&middot;&nbsp;
+    Ue-Hwan Kim<sup>1*</sup>
+  </p>
+  <p class="affiliation"><sup>1</sup>Department of AI Convergence, GIST &nbsp;&nbsp; <sup>*</sup>Corresponding Author</p>
+  <div class="btn-row">
+    <a href="https://arxiv.org/abs/2603.09506" class="btn" target="_blank"><i class="fas fa-file-pdf"></i> Paper</a>
+    <a href="https://www.youtube.com/watch?v=3xs0D7RKAbw" class="btn" target="_blank"><i class="fab fa-youtube"></i> Video</a>
+    <a href="https://github.com/AutoCompSysLab/ContextNav" class="btn" target="_blank"><i class="fab fa-github"></i> Code</a>
+  </div>
+</header>
+
+<hr>
+
+<!-- VIDEO -->
+<section>
+  <div class="container">
+    <h2>Overview Video</h2>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/3xs0D7RKAbw" title="Context-Nav Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ABSTRACT -->
+<section>
+  <div class="container">
+    <h2>Abstract</h2>
+    <div class="abstract">
+      <p>Text-goal instance navigation (TGIN) asks an agent to resolve a single, free-form description into actions that reach the correct object instance among same-category distractors. We present <strong>Context-Nav</strong>, which elevates long, contextual captions from a local matching cue to a global exploration prior and verifies candidates through 3D spatial reasoning.</p>
+      <br>
+      <p>First, we compute dense text-image alignments for a value map that ranks frontiers&mdash;guiding exploration toward regions consistent with the entire description rather than early detections. Second, upon observing a candidate, we perform a viewpoint-aware relation check: the agent samples plausible observer poses, aligns local frames, and accepts a target only if the spatial relations can be satisfied from at least one viewpoint.</p>
+      <br>
+      <p>The pipeline requires <strong>no task-specific training or fine-tuning</strong>; we attain state-of-the-art performance on <strong>InstanceNav</strong> and <strong>CoIN-Bench</strong>. Ablations show that (i) encoding full captions into the value map avoids wasted motion and (ii) explicit, viewpoint-aware 3D verification prevents semantically plausible but incorrect stops.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- OVERVIEW -->
+<section>
+  <div class="container">
+    <h2>Overview</h2>
+    <p class="body-text">Most existing TGIN methods reduce long descriptions to a set of object labels or a structured representation, underutilizing the rich contextual information already present in the description. <strong>Context-Nav</strong> takes a fundamentally different perspective: spatial reasoning is not merely a verification step but a <strong>primary exploration signal</strong>. Rather than detecting objects and then checking whether they match the description, the agent explores spaces that are contextually consistent with the entire description, and only commits to an instance after explicit 3D spatial verification. Given a description that mixes intrinsic attributes (e.g., "mainly yellow and green") with extrinsic context (e.g., "located above the cabinet and near the staircase"), the agent explores guided by the context-driven value map and rejects early candidates whose color or nearby context objects do not match, ultimately finding the correct instance where 3D verification confirms all constraints are satisfied.</p>
+    <div class="figure">
+      <img src="assets/fig1_overview.png" alt="Figure 1" onerror="this.outerHTML='<div class=\'figure-placeholder\'><i class=\'fas fa-image\'></i><span>assets/fig1_overview.png</span></div>'">
+      <p class="fig-caption"><b>Figure 1.</b> Overview of the text-goal instance navigation task and our context-driven pipeline.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- METHOD -->
+<section>
+  <div class="container">
+    <h2>Method</h2>
+    <p class="body-text">Context-Nav consists of three tightly integrated stages. Given RGB-D observations, odometry, and a free-form text goal, the <strong>perception and mapping</strong> modules use GOAL-CLIP, open-vocabulary detection (GroundingDINO + YOLOv7), and 3D projection to build an occupancy map, a context-conditioned value map, and an instance-level map. The <strong>context-driven exploration</strong> module ranks frontier cells by their value-map scores, guiding the agent toward regions consistent with the entire description rather than committing to early detections. Whenever a target object candidate is detected, the <strong>verification</strong> module checks intrinsic attributes with a VLM (Qwen2.5-VL 7B) and extrinsic attributes through viewpoint-aware 3D spatial reasoning to decide whether to terminate or continue exploring.</p>
+    <div class="figure">
+      <img src="assets/fig2_method.png" alt="Figure 2" onerror="this.outerHTML='<div class=\'figure-placeholder\'><i class=\'fas fa-image\'></i><span>assets/fig2_method.png</span></div>'">
+      <p class="fig-caption"><b>Figure 2.</b> Overall pipeline of Context-Nav.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Context-Driven Value Map</h3>
+        <p>We encode the full text goal with GOAL-CLIP and compute per-pixel text-image similarities, projected into a top-down grid. Frontier cells are ranked by their values, turning long contextual captions into map-level exploration signals.</p>
+      </div>
+      <div class="card">
+        <h3>Viewpoint-Aware Verification</h3>
+        <p>The agent samples 24 viewpoints at multiple radii, aligns a local reference frame at each pose, and evaluates seven spatial relation predicates. The target is accepted only if all relations are satisfied from at least one viewpoint.</p>
+      </div>
+      <div class="card">
+        <h3>Training-Free Pipeline</h3>
+        <p>No task-specific training or fine-tuning required. The system leverages pre-trained VLMs (GPT-OSS 20B, Qwen2.5-VL 7B) and geometry-grounded 3D reasoning for zero-shot instance navigation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- CONTEXT-DRIVEN EXPLORATION & VERIFICATION -->
+<section>
+  <div class="container">
+    <h2>Context-Driven Exploration &amp; Verification</h2>
+    <p class="body-text">In the early exploration phase, the value map highlights regions loosely consistent with the caption; however, the agent does not commit because the context objects (e.g., bed or mirror) are absent&mdash;no 3D relation validation can occur yet. As exploration progresses and context instances are detected, the value map sharpens around the corresponding room, making frontier selection more effective. Eventually, a candidate instance satisfying both intrinsic attributes and spatial relations is verified, and the agent stops. The figure below illustrates a typical episode where the agent must find a dresser described as "located next to the bed" and "a white dresser with a mirror on top": the early dresser candidate is not selected because context objects are absent; after the bed is detected, frontier selection focuses on that area; and a dresser that satisfies both intrinsic attributes and 3D spatial relations with the bed and mirror is finally verified as the goal.</p>
+    <div class="figure">
+      <img src="assets/fig3_exploration.png" alt="Figure 3" onerror="this.outerHTML='<div class=\'figure-placeholder\'><i class=\'fas fa-image\'></i><span>assets/fig3_exploration.png</span></div>'">
+      <p class="fig-caption"><b>Figure 3.</b> Stage-wise qualitative example of context-driven navigation.</p>
+    </div>
+
+    <p class="body-text">When a candidate target instance is detected and context objects are present, Context-Nav performs viewpoint-aware 3D verification of extrinsic attributes. Starting from the extrinsic part of the goal description, the system extracts context objects and spatial-relation triples (e.g., [Chair, Table, Front]), builds instance-level 3D point clouds, and samples candidate viewpoints around the reference&ndash;target pairs at multiple radii (0.8, 1.2, 1.6, 2.0 m) with 24 evenly spaced bearings. For each candidate viewpoint, a local frame is aligned so that the +x axis points from the viewpoint to the reference object, and the seven spatial predicates are evaluated. The target is confirmed only if there exists at least one viewpoint from which all extrinsic relations are satisfied simultaneously.</p>
+    <div class="figure">
+      <img src="assets/fig_s1_supp.png" alt="Figure S1" onerror="this.outerHTML='<div class=\'figure-placeholder\'><i class=\'fas fa-image\'></i><span>assets/fig_s1_supp.png</span></div>'">
+      <p class="fig-caption"><b>Figure S1.</b> Viewpoint-aware 3D verification of extrinsic attributes.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- RESULTS -->
+<section>
+  <div class="container">
+    <h2>Results</h2>
+    <p class="body-text">We evaluate Context-Nav on two complementary TGIN benchmarks within HM3D: <strong>InstanceNav</strong> (1,000 episodes, 795 unique objects, 6 categories) and <strong>CoIN-Bench</strong> (Val Seen, Val Seen Synonyms, Val Unseen), which guarantees multiple same-category distractors per episode. Context-Nav achieves state-of-the-art SR among both RL-trained and training-free baselines across all benchmarks.</p>
+
+    <p class="table-title">Benchmark Results on InstanceNav and CoIN-Bench</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="text-align:left" rowspan="2">Method</th><th rowspan="2">Input</th><th rowspan="2">TF</th><th colspan="2">InstanceNav</th><th colspan="2">Val Seen</th><th colspan="2">Val Seen Syn.</th><th colspan="2">Val Unseen</th></tr>
+          <tr><th>SR&uarr;</th><th>SPL&uarr;</th><th>SR&uarr;</th><th>SPL&uarr;</th><th>SR&uarr;</th><th>SPL&uarr;</th><th>SR&uarr;</th><th>SPL&uarr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">GOAT</td><td>d</td><td>&cross;</td><td>17.0</td><td>8.8</td><td>6.6</td><td>3.1</td><td>13.1</td><td>6.5</td><td>0.2</td><td>0.1</td></tr>
+          <tr><td class="name">PSL</td><td>d</td><td>&cross;</td><td>26.0</td><td>10.2</td><td>8.8</td><td>3.3</td><td>8.9</td><td>2.8</td><td>4.6</td><td>1.4</td></tr>
+          <tr><td class="name">VLFM</td><td>c</td><td>&check;</td><td>14.9</td><td>9.3</td><td>0.4</td><td>0.3</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+          <tr><td class="name">AIUTA</td><td>c</td><td>&check;</td><td>-</td><td>-</td><td>7.4</td><td>2.9</td><td>14.4</td><td>8.0</td><td>6.7</td><td>2.3</td></tr>
+          <tr><td class="name">UniGoal</td><td>d</td><td>&check;</td><td>20.2</td><td>11.4</td><td>2.8</td><td>2.4</td><td>3.9</td><td>3.2</td><td>2.6</td><td>2.2</td></tr>
+          <tr class="ours"><td class="name">Context-Nav (Ours)</td><td>d</td><td>&check;</td><td>26.2</td><td>9.1</td><td>13.5</td><td>6.7</td><td>20.3</td><td>10.9</td><td>11.3</td><td>5.2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Input type <strong>c</strong> = category-level goal, <strong>d</strong> = language description. TF = Training-free.</p>
+
+    <p class="table-title" style="margin-top:2rem">Ablation of Pipeline Components (CoIN-Bench Val Seen Syn.)</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="text-align:left">Method</th><th>SR &uarr;</th><th>SPL &uarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Nearest frontier exploration</td><td>10.6</td><td>4.6</td></tr>
+          <tr><td class="name">Remove VLM category verification</td><td>11.1</td><td>7.1</td></tr>
+          <tr><td class="name">Remove attribute verification</td><td>12.5</td><td>7.7</td></tr>
+          <tr><td class="name">Remove context verification</td><td>12.0</td><td>8.4</td></tr>
+          <tr class="ours"><td class="name">Full Approach</td><td>20.3</td><td>10.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- QUALITATIVE RESULTS -->
+<section>
+  <div class="container">
+    <h2>Qualitative Results</h2>
+    <p class="body-text">The figure below presents successful CoIN-Bench trajectories across nine different target categories (table, picture, mirror, radiator, desk, clothes, chair, bed, display cabinet). The instructions span a wide spectrum of natural language&mdash;from purely extrinsic cues to captions that mix intrinsic and extrinsic attributes, and from brief hints to multi-sentence descriptions. Across all cases, Context-Nav converts the full description into a value map prior and enforces 3D spatial consistency, steering the agent toward semantically relevant rooms and furniture groupings rather than chasing isolated detections.</p>
+    <div class="figure">
+      <img src="assets/fig4_qualitative.png" alt="Figure 4" onerror="this.outerHTML='<div class=\'figure-placeholder\'><i class=\'fas fa-image\'></i><span>assets/fig4_qualitative.png</span></div>'">
+      <p class="fig-caption"><b>Figure 4.</b> Qualitative results across diverse categories and context descriptions on CoIN-Bench.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- BIBTEX -->
+<section>
+  <div class="container">
+    <h2>BibTeX</h2>
+    <div class="bib">
+      <button class="copy-btn" onclick="copyBib(this)"><i class="fas fa-copy"></i> Copy</button>
+      <pre><code id="bibtex">@inproceedings{jang2026contextnav,
+  title     = {Context-Nav: Context-Driven Exploration and Viewpoint-Aware
+               3D Spatial Reasoning for Instance Navigation},
+  author    = {Jang, Won Shik and Kim, Ue-Hwan},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision
+               and Pattern Recognition (CVPR)},
+  year      = {2026}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Context-Nav &copy; 2026 &middot;
+  <a href="https://gist.ac.kr" target="_blank">GIST AI Convergence</a> &middot;
+  <a href="https://github.com/AutoCompSysLab/ContextNav" target="_blank">GitHub</a>
+</footer>
+
+<script>
+function copyBib(btn) {
+  navigator.clipboard.writeText(document.getElementById('bibtex').textContent).then(() => {
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> Copy', 2000);
+  });
+}
+</script>
+</body>
+</html>

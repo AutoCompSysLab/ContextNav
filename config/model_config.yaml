@@ -1,0 +1,129 @@
+# ============================================================
+# ContextNav Model & Service Configuration
+# ============================================================
+# Environment variables override these defaults.
+# e.g. VLM_MODEL=qwen2.5vl:7b-fp16 overrides vlm.model below.
+# ============================================================
+
+# --- Service Ports ---
+ports:
+  grounding_dino: 12220
+  clip2itm: 12221
+  sam: 12222
+  yolov7: 12223
+
+# --- VLM (Vision-Language Model) ---
+vlm:
+  model: "qwen2.5vl:7b-fp16"
+  base_url: "http://localhost:11434/v1"
+  api_key: "ollama"
+  use_bbox: true
+  verify_with_vlm: true
+
+# --- LLM ---
+llm:
+  model: "gpt-oss:20b"
+
+# --- Information Gain Weights ---
+ig_weights:
+  vis: 0.7
+  sig: 0.3
+
+# --- Detection Thresholds ---
+detection:
+  maxdepth_norm_th: 0.985
+  maxdepth_skip_ratio: 0.98
+  vlm_decision_threshold: 0.6
+
+# --- Navigation ---
+navigation:
+  blacklist_radius_m: 0.5
+  relation_max_distance_m: 2.0
+
+# --- Spatial Reasoning ---
+spatial:
+  rel_verify_max_inst_per_class: 4
+
+# --- Visualization (default setting : CoIN-Bench)---
+visualization:
+  depth_hfov_deg: 79
+  rgb_hfov_deg: 42
+
+# --- YNU (Yes/No/Unknown) Defer ---
+ynu:
+  defer_window: 5
+  T_low: 4
+  T_high: 11
+  unknown_pass_after: 5
+
+# --- Wall Visualization (PSL defaults) ---
+wall_vis:
+  explored_mask: true
+  wall_color: [64, 64, 64]
+  wall_thickness: 3
+  explored_color: [230, 230, 230]
+
+# --- Value Map ---
+value_map:
+  record: false
+  play: false
+  fusion_type: ""
+
+# --- Object Point Cloud Map ---
+object_cloud:
+  instance_eps_m: 0.35
+  instance_min_pts: 20
+  det_cache_cap: 512
+
+# --- Cloud Geometry (depth-to-RGB calibration) ---
+cloud_geometry:
+  d2r_roll_deg: 0.0
+  d2r_pitch_deg: 0.0
+  d2r_yaw_deg: 0.0
+  d2r_tx: 0.0
+  d2r_ty: 0.0
+  d2r_tz: 0.0
+
+# --- Candidate Scoring Weights ---
+scoring:
+  cand_w_attr: 1.0
+  cand_w_ctx: 1.0
+  cand_w_ctxcount: 1.0
+  cand_w_rel: 1.0
+
+# --- Instance Management ---
+instance:
+  det_voxel_m: 0.05
+  det_overlap_min_ratio: 0.45
+
+# --- Wall Map ---
+wall_map:
+  min_range_m: 0.4
+  max_range_m: 8.0
+  depth_max_range_m: 5.0
+  stat_nb: 20
+  stat_std: 1.5
+  rad_nb: 30
+  rad_radius: 0.25
+  ransac_dist: 0.03
+  ransac_iters: 1500
+  max_planes: 3
+  vertical_nz_max: 0.3
+  min_inliers: 400
+  min_blob_px: 25
+  voxel_m: 0.05
+  sample_cap_n: 0
+
+# --- Benchmark Profiles ---
+# Set CONTEXTNAV_BENCHMARK env var to switch ("psl" or "coin").
+benchmark: "psl"
+
+benchmark_profiles:
+  psl:
+    fallback_step: 900
+    enable_vlm_exist_check: false
+    enable_depth_fov_correction: false
+  coin:
+    fallback_step: 400
+    enable_vlm_exist_check: true
+    enable_depth_fov_correction: true
