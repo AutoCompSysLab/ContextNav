@@ -10,11 +10,9 @@ Gwangju Institute of Science and Technology (GIST)
 </div>
 
 <div align="center">
-<!--
-<a href="LINK_TO_PAPER">
-<img src="https://img.shields.io/badge/Paper-Coming%20Soon-red">
+<a href="https://cvpr.thecvf.com/virtual/2026/poster/38396">
+<img src="https://img.shields.io/badge/CVPR-2026-4b44ce">
 </a>
--->
 <a href="https://autocompsyslab.github.io/ContextNav/">
 <img src="https://img.shields.io/badge/Project-Page-blue">
 </a>
