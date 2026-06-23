@@ -226,10 +226,11 @@ This codebase is built upon [VLFM](https://github.com/rai-opensource/vlfm) and [
 If you find our work useful, please cite:
 
 ```bibtex
-@inproceedings{jang2026contextnav,
+@inproceedings{jang2026context,
   title={Context-Nav: Context-Driven Exploration and Viewpoint-Aware 3D Spatial Reasoning for Instance Navigation},
   author={Jang, Won Shik and Kim, Ue-Hwan},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={9626--9636},
   year={2026}
 }
 ```
